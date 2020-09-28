@@ -11,6 +11,8 @@
     "apollo-client": "^2.6.10",
     "apollo-link-error": "^1.1.13",
     "apollo-upload-client": "^14.1.1",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^4.0.0",
     "graphql": "^15.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

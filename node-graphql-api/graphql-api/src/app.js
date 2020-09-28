@@ -1,29 +1,30 @@
 import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { Query, Mutation } from "./schema/resolvers";
 
-// The GraphQL schema in string form
 const typeDefs = `
-  type User {
-    id: Int!
-    username: String!
-    email: String!
-    imageuri: String!
-  }
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
 
-  type Query { 
-    getUser  : User
-  }
+type User {
+  id: Int
+  username: String
+  imageuri: String
+  image: File
+}
 
-  type Mutation { 
-    createUser ( 
-      username : String!
-      email : String!
-     ) : User
+type Query {
+  getUser: [User]
+}
 
-    updateUser (id : Int!)   : User
-    deleteUser (id : Int!) : User
-   }
+type Mutation {
+  createUser(username: String!, image: Upload!): User
+
+  deleteUser: Boolean
+}
 `;
 
 // The resolvers
@@ -43,8 +44,9 @@ const app = express();
 const route = "graphql";
 
 server.applyMiddleware({ app, route });
+const PORT  = process.env.PORT || 4000
 
 // Start the server
-app.listen(3000, () => {
-  console.log("Go to http://localhost:3000/graphql to run queries!");
+app.listen(PORT, () => {
+  console.log(`Run queries at http://localhost:${PORT}/graphql`);
 });
